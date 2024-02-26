@@ -4,7 +4,7 @@ import modele.Alliance;
 import modele.board.Board;
 import modele.board.Move;
 
-import java.util.List;
+import java.util.Collection;
 
 public abstract class Piece {
 
@@ -16,5 +16,9 @@ public abstract class Piece {
         this.pieceAlliance = pieceAlliance;
     }
 
-    public abstract List<Move> calculateLegalMoves(final Board board);
+    public Alliance getPieceAlliance(){
+        return this.pieceAlliance;
+    }
+
+    public abstract Collection<Move> calculateLegalMoves(final Board board);
 }
