@@ -2,6 +2,8 @@ package modele.board;
 
 import modele.pieces.Piece;
 
+import static modele.board.Board.*;
+
 public abstract class Move {
 
     final Board board;
@@ -20,6 +22,9 @@ public abstract class Move {
 
     public abstract Board execute();
 
+    public Piece getMovedPiece(){
+        return this.movedPiece;
+    }
 
     public static final class MajorMove extends Move {
 
@@ -29,7 +34,18 @@ public abstract class Move {
 
         @Override
         public Board execute() {
-            return null;
+            final Builder builder = new Builder();
+            for(final Piece piece : this.board.currentPlayer().getActivePieces()){
+                if(!this.movedPiece.equals(piece)){
+                    builder.setPiece(piece);
+                }
+            }
+            for(final Piece piece : this.board.currentPlayer().getOpponent().getActivePieces()){
+                builder.setPiece(piece);
+            }
+            builder.setPiece(this.movedPiece.movePiece(this));
+            builder.setMoveMaker(this.board.currentPlayer().getOpponent().getAlliance());
+            return builder.build();
         }
     }
 
