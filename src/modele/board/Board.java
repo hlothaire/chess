@@ -3,7 +3,9 @@ package modele.board;
 import com.google.common.collect.ImmutableList;
 import modele.Alliance;
 import modele.pieces.*;
-
+import modele.player.Player;
+import modele.player.WhitePlayer;
+import modele.player.BlackPlayer;
 import java.util.*;
 
 public class Board {
@@ -12,6 +14,10 @@ public class Board {
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
 
+    private final WhitePlayer whitePlayer;
+    private final BlackPlayer blackPlayer;
+    private final Player currentPlayer;
+
     private Board(Builder builder){
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivesPieces(this.gameBoard,Alliance.WHITE);
@@ -19,6 +25,10 @@ public class Board {
 
         final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
+
+        this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves,blackStandardLegalMoves);
+        this.blackPlayer = new BlackPlayer(this,whiteStandardLegalMoves, blackStandardLegalMoves);
+        this.currentPlayer = null;
     }
 
     @Override
@@ -34,6 +44,25 @@ public class Board {
         return builder.toString();
     }
 
+    public Player whitePlayer(){
+        return this.whitePlayer;
+    }
+
+    public Player blackPlayer(){
+        return this.blackPlayer;
+    }
+
+    public Player currentPlayer(){
+        return this.currentPlayer;
+    }
+
+    public Collection<Piece> getWhitePieces(){
+        return this.whitePieces;
+    }
+
+    public Collection<Piece> getBlackPieces(){
+        return this.blackPieces;
+    }
 
     private Collection<Move> calculateLegalMoves(Collection<Piece> pieces) {
         final List<Move> legalMoves = new ArrayList<>();

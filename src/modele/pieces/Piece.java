@@ -8,14 +8,20 @@ import java.util.Collection;
 
 public abstract class Piece {
 
+    protected final PieceType pieceType;
     protected final int piecePosition;
     protected final boolean isFirstMove;
     protected final Alliance pieceAlliance;
 
-    Piece(final int piecePosition, final Alliance pieceAlliance) {
+    Piece(final PieceType pieceType, final int piecePosition, final Alliance pieceAlliance) {
+        this.pieceType = pieceType;
         this.piecePosition = piecePosition;
         this.pieceAlliance = pieceAlliance;
         this.isFirstMove = false;
+    }
+
+    public PieceType getPieceType() {
+        return this.pieceType;
     }
 
     public int getPiecePosition(){
@@ -32,12 +38,42 @@ public abstract class Piece {
 
     public enum PieceType{
 
-        Pawn("P"),
-        Knight("N"),
-        Bishop("B"),
-        Rook("R"),
-        Queen("Q"),
-        King("K");
+        Pawn("P") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        Knight("N") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        Bishop("B") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        Rook("R") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        Queen("Q") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
+        King("K") {
+            @Override
+            public boolean isKing() {
+               return true;
+            }
+        };
         private String pieceName;
        PieceType(final String pieceName){
            this.pieceName  = pieceName;
@@ -47,5 +83,7 @@ public abstract class Piece {
         public String toString(){
            return this.pieceName;
         }
+
+        public abstract boolean isKing();
     }
 }
