@@ -69,11 +69,21 @@ public abstract class Piece {
 
         Pawn("P") {
             @Override
+            public boolean isRook() {
+                return false;
+            }
+
+            @Override
             public boolean isKing() {
                 return false;
             }
         },
         Knight("N") {
+            @Override
+            public boolean isRook() {
+                return false;
+            }
+
             @Override
             public boolean isKing() {
                 return false;
@@ -81,11 +91,21 @@ public abstract class Piece {
         },
         Bishop("B") {
             @Override
+            public boolean isRook() {
+                return false;
+            }
+
+            @Override
             public boolean isKing() {
                 return false;
             }
         },
         Rook("R") {
+            @Override
+            public boolean isRook() {
+                return true;
+            }
+
             @Override
             public boolean isKing() {
                 return false;
@@ -93,11 +113,21 @@ public abstract class Piece {
         },
         Queen("Q") {
             @Override
+            public boolean isRook() {
+                return false;
+            }
+
+            @Override
             public boolean isKing() {
                 return false;
             }
         },
         King("K") {
+            @Override
+            public boolean isRook() {
+                return false;
+            }
+
             @Override
             public boolean isKing() {
                return true;
@@ -112,7 +142,7 @@ public abstract class Piece {
         public String toString(){
            return this.pieceName;
         }
-
+        public abstract boolean isRook();
         public abstract boolean isKing();
     }
 }
