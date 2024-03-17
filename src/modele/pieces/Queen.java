@@ -17,7 +17,12 @@ public class Queen extends Piece{
     private final static int[] CANDIDATE_MOVE_COORDINATE = {-9,-8,-7,-1,1,7,8,9};
 
     public Queen(final int piecePosition, final Alliance pieceAlliance){
-        super(PieceType.Queen,piecePosition, pieceAlliance);
+        super(PieceType.Queen,piecePosition, pieceAlliance,true);
+    }
+
+
+    public Queen(final int piecePosition, final Alliance pieceAlliance,final boolean isFirstMove){
+        super(PieceType.Queen,piecePosition, pieceAlliance,isFirstMove);
     }
 
     @Override
